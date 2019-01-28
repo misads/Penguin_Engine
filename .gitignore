@@ -328,3 +328,11 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+Debug/
+Penguin/Data
+Penguin/Images
+Penguin/Sounds
+Penguin/swf
+Penguin/wav
+Penguin/psd
