@@ -110,7 +110,7 @@ bool CGame::LoadRes(){
 
 
 	CD2DImage d2dImageBuf;
-	
+	LoadImg("c", "test/c.png");
 	LoadImg("ice1", "Images/Image 1336.png");
 	LoadImg("ice2", "Images/Image 1337.png");
 	LoadImg("ice3", "Images/Image 1338.png");
@@ -269,6 +269,7 @@ LRESULT CALLBACK CGame::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 				m_ResolutionSetting.vResolution[m_ResolutionSetting.nResolutionNow].y, true);
 			break;
 		}
+		break;
 
 	case WM_KEYUP:
 		m_KeyState[wParam] = KEYUP;
@@ -469,12 +470,12 @@ bool CGame::Render(float fTime){
 	case GAME_RUNNING:
 
 		D2DC.BeginDraw();
-		D2DC.ClearScreen(D2D1::ColorF::Wheat);
+		D2DC.ClearScreen(D2D1::ColorF::Black);
 		//m_mD2DGif["ice"].Render(D2DC.pRenderTarget(), fTime, fPoint(0 , 0), fVector(400, 300));
-		D2DC.DrawBmp(m_mD2DImage["ice1"], 0, 0, 400, 300, 1.0F,0,0,800,600);
-		D2DC.DrawTextC(L"Î¢ÈíÑÅºÚ", 35, 1, 1, 0, 0, L"²âÊÔµÄÎÄ×Ö", D2DRGB(0, 0, 0));
+		D2DC.DrawBmp(m_mD2DImage["c"], 0, 0, 400, 300, 1.0F,0,0,100,100);
+		D2DC.DrawTextC(L"Î¢ÈíÑÅºÚ", 35, 1, 1, 0, 0, L"²âÊÔµÄÎÄ×Ö", D2DRGB(255, 201, 14));
 		//m_mD2DGif["ice"].Render(D2DC.pRenderTarget(), fTime, fPoint(0, 0), fVector(400, 300));
-
+		//D2DC.DrawRectangle(10, 10, 150, 50, 2);
 		D2DC.EndDraw();
 
 		break;
