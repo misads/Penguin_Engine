@@ -92,6 +92,7 @@
     <ClInclude Include="CommonHead.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="DSound.h" />
+    <ClInclude Include="Element.h" />
     <ClInclude Include="Ini.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Macros.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="CD2DImage.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="DSound.cpp" />
+    <ClCompile Include="Element.cpp" />
     <ClCompile Include="Ini.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Macros.cpp" />
