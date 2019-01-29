@@ -10,7 +10,6 @@
 #include<string.h>
 #include<stdlib.h>
 #include<stdio.h>
-#include "CommonHead.h"
 #ifndef _H_FILE_H
 #define _H_FILE_H
 #pragma once

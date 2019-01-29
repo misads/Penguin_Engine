@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\utils">
+      <UniqueIdentifier>{0491da06-4d38-4fda-86e9-a5b3f308f024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{51ba715c-047f-47ac-8a58-528bf8e61259}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -27,37 +33,7 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Penguin.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonHead.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Arith.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="App.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CD2D.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CD2DAnimation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CD2DImage.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CD2DGif.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DSound.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="resource1.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Constants.h">
@@ -66,14 +42,35 @@
     <ClInclude Include="Types.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Ini.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Macros.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Element.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\CD2D.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\CD2DGif.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\CD2DImage.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\DSound.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Ini.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Arith.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\utils.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Debug.h">
+      <Filter>头文件\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,28 +80,7 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="App.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CD2D.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CD2DAnimation.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CD2DImage.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Arith.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CD2DGif.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSound.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Types.cpp">
@@ -113,14 +89,35 @@
     <ClCompile Include="Constants.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Ini.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Macros.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Element.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Arith.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\CD2D.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\CD2DGif.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\CD2DImage.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\DSound.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Ini.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\utils.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Debug.cpp">
+      <Filter>源文件\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

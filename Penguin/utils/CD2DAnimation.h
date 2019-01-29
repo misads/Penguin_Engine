@@ -1,6 +1,3 @@
-#ifndef _SERVER_
-#ifdef _D2DRender_
-
 #include "CD2D.h"
 
 
@@ -70,8 +67,5 @@ protected:
 
 
 
-
-#endif
-#endif
 
 #endif

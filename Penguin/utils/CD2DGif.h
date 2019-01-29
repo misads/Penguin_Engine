@@ -1,12 +1,4 @@
-#include "CommonHead.h"
-
-#ifdef _D2DRender_
-
 #include "CD2D.h"
-
-
-#ifndef _CD2DGIF_H
-#define _CD2DGIF_H
 
 #pragma once
 
@@ -67,6 +59,3 @@ protected:
 
 };
 
-
-#endif
-#endif

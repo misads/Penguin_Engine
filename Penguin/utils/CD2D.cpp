@@ -1,9 +1,5 @@
 #include"stdafx.h"
 
-#ifndef _SERVER_
-
-#ifdef _D2DRender_
-
 #include "CD2D.h"
 
 #pragma warning (disable: 4244) 
@@ -52,7 +48,7 @@ BOOL CD2D::ClearScreen(D2D1::ColorF::Enum clearColor){
 	return TRUE;
 }
 
-BOOL CD2D::CreateD2DResource(HWND m_hWnd)
+BOOL CD2D::CreateD2DResource(HWND m_hWnd, bool IsVerticalSync)
 {
 	if (!m_pRenderTarget)
 	{
@@ -75,7 +71,7 @@ BOOL CD2D::CreateD2DResource(HWND m_hWnd)
 
 		D2D1_PRESENT_OPTIONS d2dOptions;
 
-		if (Game.IsVerticalSync())d2dOptions = D2D1_PRESENT_OPTIONS_NONE;
+		if (IsVerticalSync)d2dOptions = D2D1_PRESENT_OPTIONS_NONE;
 		else d2dOptions = D2D1_PRESENT_OPTIONS_IMMEDIATELY;
 		// Create a Direct2D render target
 		hr = m_pD2DFactory->CreateHwndRenderTarget(
@@ -301,6 +297,3 @@ void CD2D::Cleanup(void)
 ID2D1HwndRenderTarget* CD2D::pRenderTarget(){
 	return m_pRenderTarget;
 }
-#endif
-
-#endif

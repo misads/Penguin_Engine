@@ -28,13 +28,13 @@
 
 //TODO:  在此处引用程序需要的其他头文件
 #include <atlstr.h>
-#include "Ini.h"
-#include "App.h"
+#include "utils/Ini.h"
+#include "utils/utils.h"
 
 
 
-#include "CD2D.h"
-#include "CD2DAnimation.h"
+#include "utils/CD2D.h"
+#include "utils/CD2DAnimation.h"
 
 #include "Game.h"
 
@@ -48,7 +48,6 @@ extern CD2D D2DC;
 
 
 extern CGame Game;
-extern CApp	APP;
 
 
 

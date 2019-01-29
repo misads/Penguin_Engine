@@ -1,8 +1,5 @@
 #include "stdafx.h"
 
-#ifdef _D2DRender_
-#ifndef _SERVER_
-
 
 #include "CD2DImage.h"
 
@@ -140,6 +137,5 @@ BOOL CD2DImage::LoadImageFromRes(ID2D1HwndRenderTarget* pRenderTarget, HINSTANCE
 ID2D1Bitmap * CD2DImage::pBitMap(){
 	return m_pBitmap;
 }
-#endif
-#endif
+
 

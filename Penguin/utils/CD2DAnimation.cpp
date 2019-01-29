@@ -1,6 +1,5 @@
 #include "stdafx.h"
-#ifdef _D2DRender_
-#ifndef _SERVER_
+
 
 #include "CD2DAnimation.h"
 
@@ -193,4 +192,3 @@ void CD2DAnimation::SetCycles(int nCycles){
 
 #endif
 
-#endif

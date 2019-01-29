@@ -1,34 +1,34 @@
 #include "stdafx.h"
 #include "Debug.h"
 
-#ifndef _SERVER_
+#ifndef MAX_STRING_LENGTH
+	#define MAX_STRING_LENGTH 260
+#endif
 
-void DEBUG(LPCTSTR lpText){
+void _DEBUGMSG(LPCTSTR lpText){
 	MessageBox(0, lpText, L"DEBUG", 0);
 }
 
-void DEBUG(CString strText){
+void _DEBUGMSG(CString strText){
 	//WCHAR wTemp[MAX_STRING_LENGTH] = { L"\0" };
-	DEBUG((LPCTSTR)strText);
+	_DEBUGMSG((LPCTSTR)strText);
 }
 
-void DEBUG(int nText){
+void _DEBUGMSG(int nText){
 	WCHAR wText[MAX_STRING_LENGTH];
 	_itot_s(nText, wText, 10);
-	DEBUG(wText);
+	_DEBUGMSG(wText);
 
 }
 
-void DEBUG(float fText){
+void _DEBUGMSG(float fText){
 	WCHAR wText[MAX_STRING_LENGTH];
 	_stprintf_s(wText, L"%f", fText);
-	DEBUG(wText);
+	_DEBUGMSG(wText);
 	
 }
 
-void DEBUG(LPSTR lpText){
+void _DEBUGMSG(LPSTR lpText){
 	MessageBoxA(0, lpText, "DEBUG", 0);
 
 }
-
-#endif

@@ -1,6 +1,3 @@
-#ifndef _SERVER_
-#ifdef _D2DRender_
-
 extern HINSTANCE hAppInstance;
 
 #include <D2D1.h>// header for Direct2D
@@ -8,7 +5,7 @@ extern HINSTANCE hAppInstance;
 #include <Dwrite.h>
 #include <atlstr.h>
 #include <wincodec.h>  
-#include "Arith.h"
+#include "utils/Arith.h"
 #define SAFE_RELEASE(P) if(P){P->Release() ; P = NULL ;}
 
 #ifndef _CD2DIMAGE_H
@@ -31,8 +28,5 @@ private:
 	IWICImagingFactory *		m_pImageFactory;
 	ID2D1Bitmap *				m_pBitmap;
 };
-
-#endif
-#endif
 
 #endif

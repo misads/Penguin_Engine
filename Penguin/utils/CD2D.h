@@ -1,7 +1,3 @@
-#ifndef _SERVER_
-#ifdef _D2DRender_
-
-
 #include <D2D1.h>// header for Direct2D
 #include <d2d1helper.h>  
 #include <Dwrite.h>
@@ -10,10 +6,10 @@
 #include "Arith.h"
 #include "CD2DImage.h"
 
+using namespace std;
+
 #define SAFE_RELEASE(P) if(P){P->Release() ; P = NULL ;}
 
-#ifndef _CD2D_H
-#define _CD2D_H
 
 #pragma once
 
@@ -30,7 +26,7 @@ public:
 
 public:
 	//初始化
-	BOOL CreateD2DResource(HWND hWnd);
+	BOOL CreateD2DResource(HWND hWnd, bool IsVerticalSync = true);
 	//开始绘画
 	void	BeginDraw();
 	//结束绘画
@@ -70,7 +66,3 @@ private:
 	HWND m_hWnd;                             // Window handle
 };
 
-#endif
-#endif
-
-#endif

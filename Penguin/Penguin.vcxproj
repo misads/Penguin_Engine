@@ -43,6 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>D:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_SourcePath)/utils;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -83,37 +84,26 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
-    <ClInclude Include="Arith.h" />
-    <ClInclude Include="CD2D.h" />
-    <ClInclude Include="CD2DAnimation.h" />
-    <ClInclude Include="CD2DGif.h" />
-    <ClInclude Include="CD2DImage.h" />
-    <ClInclude Include="CommonHead.h" />
     <ClInclude Include="Constants.h" />
-    <ClInclude Include="DSound.h" />
     <ClInclude Include="Element.h" />
-    <ClInclude Include="Ini.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Macros.h" />
-    <ClInclude Include="Penguin.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="resource1.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="utils\Arith.h" />
+    <ClInclude Include="utils\CD2D.h" />
+    <ClInclude Include="utils\CD2DGif.h" />
+    <ClInclude Include="utils\CD2DImage.h" />
+    <ClInclude Include="utils\Debug.h" />
+    <ClInclude Include="utils\DSound.h" />
+    <ClInclude Include="utils\Ini.h" />
+    <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
-    <ClCompile Include="Arith.cpp" />
-    <ClCompile Include="CD2D.cpp" />
-    <ClCompile Include="CD2DAnimation.cpp" />
-    <ClCompile Include="CD2DGif.cpp" />
-    <ClCompile Include="CD2DImage.cpp" />
     <ClCompile Include="Constants.cpp" />
-    <ClCompile Include="DSound.cpp" />
     <ClCompile Include="Element.cpp" />
-    <ClCompile Include="Ini.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Macros.cpp" />
     <ClCompile Include="main.cpp" />
@@ -122,6 +112,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Types.cpp" />
+    <ClCompile Include="utils\Arith.cpp" />
+    <ClCompile Include="utils\CD2D.cpp" />
+    <ClCompile Include="utils\CD2DGif.cpp" />
+    <ClCompile Include="utils\CD2DImage.cpp" />
+    <ClCompile Include="utils\Debug.cpp" />
+    <ClCompile Include="utils\DSound.cpp" />
+    <ClCompile Include="utils\Ini.cpp" />
+    <ClCompile Include="utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Penguin.rc" />

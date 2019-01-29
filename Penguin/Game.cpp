@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
-#include "Ini.h"
-#include "DSound.h"
+#include "utils/Ini.h"
+#include "utils/DSound.h"
 #include "resource.h"
 
 
@@ -20,17 +20,11 @@ CGame::CGame(){
 	
 	m_fTime = 0;
 	m_vResolution = GetScreenResolution();
-	m_fUnitScale = fVector(1.0f, 1.0f);
+
 	RenderMutex = CreateSemaphore(NULL, 1, 1, NULL);
 
 	m_gameState = GAME_LOADING;
 
-#ifdef _D2DRender_
-
-	//m_bEmployHardwareRender = true;
-#else
-	//m_bEmployHardwareRender = false;
-#endif
 
 	memset(m_KeyState, 0, sizeof(m_KeyState));//按键信息清零
 
@@ -155,7 +149,7 @@ bool CGame::LoadRes(){
 	////////////////
 
 	ReleaseSemaphore(RenderMutex, 1, NULL);
-	nLoadPercent = 98;
+
 	Sleep(LOADING_DELAY);
 	WaitForSingleObject(RenderMutex, INFINITE);
 	////////////////
@@ -166,7 +160,7 @@ bool CGame::LoadRes(){
 	//
 	///////////////
 	ReleaseSemaphore(RenderMutex, 1, NULL);
-	nLoadPercent = 100;
+
 	WaitForSingleObject(RenderMutex, INFINITE);
 
 	return true;
@@ -198,8 +192,6 @@ bool	CGame::LoadConfig(){
 	m_gameConfig.FPS = Ini.ReadInt(L"Video", L"Fps", 3, L"./config.ini");
 
 
-	m_fUnitScale = fVector(m_gameConfig.SCREEN_WIDTH/(MAX_WIDTH_UNIT *1.0f),
-		m_gameConfig.SCREEN_HEIGHT/(MAX_HEIGHT_UNIT*1.0f));//更新比例
 
 	return true;
 }
@@ -350,35 +342,21 @@ bool CGame::SetScreenResolution(int _x, int _y){
 	return SetScreenResolution(Vector(Point(_x, _y)));
 }
 
-int CGame::GetConfigFps(){
-	return m_gameConfig.FPS;
+GAME_CONFIG CGame::GetConfig(){
+	return m_gameConfig;
 
 }
 
-BOOL CGame::IsVerticalSync(){
-	return m_gameConfig.VERTICAL_SYNC;
-
-}
-
-BOOL CGame::IsPerformancePrior(){
-	return m_gameConfig.PERFORMANCE_PRIOR;
-}
-
-fVector	CGame::GetUnitScale(){
-	return m_fUnitScale;
-}
 
 
-//        /@^     .@@^           .@@`     =@@`          =@^       =@@.         ].  @@^          =@^     
-//         ,@@`   /@^            =@^      @@`           =@^  =@@@@@@@@@@@@@`  =@/  @@^     .]]. =@^     
-//      .@@@@@@@@@@@@@@^      =@@@@@@@@^ =@@@@@@@@^  ,]]/@\]`=@^ .       O@. ,@@[[[@@/[[[[. @@. =@^     
-//      .@@          =@^      =@@    =@^=@/     =@^     =@^     /@/` ,@@`     ..   @@^      @@. =@^     
-//      .@@          =@^      =@@    =@/\^ ]    =@^     =@^   /@@`     =@@`  [[[[[[@@/[[[[` @@. =@^     
-//      .@@@@@@@@@@@@@@^      =@@@@@@@@^  =@\   =@^    ./@@@^ ,`        .`         @@^      @@. =@^     
-//            ,@\     .`      =@@    =@^   =@\  =@^  =@@\@^   [[[[[@@[[[[[    =@/[[@@/[[@@^ @@. =@^     
-//     =@^ @@. ,@@`   \@@`    =@@    =@^    [.  =@.     =@^        @@.        =@^  @@^  @@^.@@. =@^     
-//    ,@/  @@.  .`  .` .\@\.  =@@]]]]/@^        @@.     =@^        @@.        =@^  @@^,]@@.     =@^     
-//   .@@.  @@].    ,/@/       =@@    =@^   ,]]]/@@    ,]/@^ .@@@@@@@@@@@@@@^  ,[`  @@^.[`    .]]@@^   
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+///////		一帧开始时的事件									//////
+///////		每次都会处理游戏逻辑，每经过一段时间会渲染一次		//////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 bool CGame::OnFrameStart(HWND hWnd, float fTime){
 
 
@@ -396,23 +374,6 @@ bool CGame::OnFrameStart(HWND hWnd, float fTime){
 //
 ////////////////////////////////////
 
-BYTE CGame::GetPlotState(string _plot){
-	return GetPlotState(m_mPlotState[_plot]);
-}
-
-BYTE CGame::GetPlotState(int _where){
-
-	return m_byPlotState[_where];
-}
-
-void CGame::SetPlotState(string _plot, BYTE _plotstate){
-	SetPlotState(m_mPlotState[_plot], _plotstate);
-}
-
-void CGame::SetPlotState(int _where, BYTE _plotstate){
-	m_byPlotState[_where] = _plotstate;
-
-}
 
 //                   ]]/`                          .]]].                                                                          
 //   ./@@\.          .@@\              ,@@@\`       @@/                .@@@@@@@@@@@@@@@@@@@@@@^       ]@\  .@@^ .@@^  =@@^        

@@ -1,14 +1,13 @@
-// main.cpp : 启动文件，定义应用程序的入口点。
-//
+// main.cpp : 程序从这个文件启动
+
 
 #include "stdafx.h"
-#include "Penguin.h"
-#include "CommonHead.h"
-#include "Ini.h"
+#include "resource.h"
+#include "utils/Ini.h"
 
-#include "CD2D.h"
-#include "CD2DAnimation.h"
-#include "DSound.h"
+#include "utils/CD2D.h"
+#include "utils/CD2DAnimation.h"
+#include "utils/DSound.h"
 
 #define MAX_LOADSTRING 100
 
@@ -17,22 +16,16 @@
 #pragma comment(lib,"dwrite.lib")
 
 
-
-
-#include "App.h"
+#include "utils/utils.h"
 #include "Game.h"
 #include "window.h"
-
-
-#ifdef _DEBUG_
-#include "Debug.h"
-#endif
+#include "Types.h"
 
 #define MAX_LOADSTRING 100
 
 using namespace DSound;
 
-// 全局变量: 
+// 此代码模块的全局变量: 
 HINSTANCE hInst;								// 当前实例
 TCHAR szTitle[MAX_LOADSTRING];					// 标题栏文本
 TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
@@ -40,9 +33,9 @@ TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
 
 
 //全局变量
-CIni	Ini;
+//CIni	Ini;
 CD2D	D2DC;
-CApp	App;
+//CApp	App;
 CGame	Game;
 
 
@@ -82,24 +75,20 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_PENGUIN));
 
-	// 主消息循环（PeekMessage）: 
+	// 游戏主循环（PeekMessage）: 
 	ZeroMemory(&msg, sizeof(msg));
 	while (msg.message != WM_QUIT){
-		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-		{
+		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE)){
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		else
-
-			//Render();
+		else{
 			Game.OnFrameStart(MainWindow, Game.fTime());
-
-			if (!Game.IsPerformancePrior()) 
+			if (!Game.GetConfig().PERFORMANCE_PRIOR)
 				Sleep(1);//如果不是性能优先 尽可能地节省CPU时间
+		}
+		
 	}
-
-
 
 	return (int) msg.wParam;
 }
@@ -128,7 +117,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_PENGUIN));
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_PENGUIN);
+	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_PENGUIN);		//菜单栏
 	wcex.lpszClassName	= szWindowClass;
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -160,7 +149,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	_TRY(Game.AlterResolution(), "无法全屏游戏，请使用窗口模式", true);
 
 	MainWindow = CreateWindow(szWindowClass, L"Penguin Demo", WS_OVERLAPPEDWINDOW,
-	   (Game.GetScreenResolution().x - 800)/2, (Game.GetScreenResolution().y-600)/2, Game.GetConfigResolution().x, Game.GetConfigResolution().y, NULL, NULL, hInst, NULL);
+	   0, 0, Game.GetConfigResolution().x, Game.GetConfigResolution().y, NULL, NULL, hInst, NULL);
 
 
    if (!MainWindow)
@@ -182,13 +171,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 /////////////////////////////////
 //
-//      游 戏 初 始 化
+//      游戏初始化线程
 //
 /////////////////////////////////
 
    HANDLE gameInitThread = CreateThread(NULL, 0, GameInitThread, NULL, 0, NULL);
 
-   //if (!Game.InitGame(MainWindow)) _ERROR(TEXT("游戏初始化失败"), true);
+   if (!Game.InitGame(MainWindow)) _ERROR(TEXT("游戏初始化失败"), true);
 
    return TRUE;
 }
@@ -273,12 +262,8 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 DWORD WINAPI GameInitThread(LPVOID IpParameter){
 
 
-	Game.nLoadPercent=0;
-
 	 _TRY(Game.InitGame(MainWindow), "游戏初始化失败", true);
 
-
-	Game.nLoadPercent = 100;
 	return 0;
 
 
