@@ -337,3 +337,6 @@ Penguin/swf
 Penguin/wav
 Penguin/psd
 Penguin.txt
+Penguin/Release
+Penguin/*.cd
+Penguin/*.aps
