@@ -82,7 +82,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
-    <ClInclude Include="Element.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Resource.h" />
@@ -91,19 +90,21 @@
     <ClInclude Include="Types.h" />
     <ClInclude Include="utils\Arith.h" />
     <ClInclude Include="utils\CD2D.h" />
-    <ClInclude Include="utils\CD2DGif.h" />
     <ClInclude Include="utils\CD2DImage.h" />
+    <ClInclude Include="utils\CD2DObject.h" />
     <ClInclude Include="utils\Debug.h" />
     <ClInclude Include="utils\DSound.h" />
+    <ClInclude Include="utils\Element.h" />
     <ClInclude Include="utils\Ini.h" />
     <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constants.cpp" />
-    <ClCompile Include="Element.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Logic.cpp" />
     <ClCompile Include="Macros.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Render.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -111,10 +112,11 @@
     <ClCompile Include="Types.cpp" />
     <ClCompile Include="utils\Arith.cpp" />
     <ClCompile Include="utils\CD2D.cpp" />
-    <ClCompile Include="utils\CD2DGif.cpp" />
     <ClCompile Include="utils\CD2DImage.cpp" />
+    <ClCompile Include="utils\CD2DObject.cpp" />
     <ClCompile Include="utils\Debug.cpp" />
     <ClCompile Include="utils\DSound.cpp" />
+    <ClCompile Include="utils\Element.cpp" />
     <ClCompile Include="utils\Ini.cpp" />
     <ClCompile Include="utils\utils.cpp" />
   </ItemGroup>

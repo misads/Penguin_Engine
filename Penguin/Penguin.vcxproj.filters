@@ -42,16 +42,7 @@
     <ClInclude Include="Macros.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Element.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="utils\CD2D.h">
-      <Filter>头文件\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\CD2DGif.h">
-      <Filter>头文件\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\CD2DImage.h">
       <Filter>头文件\utils</Filter>
     </ClInclude>
     <ClInclude Include="utils\DSound.h">
@@ -67,6 +58,15 @@
       <Filter>头文件\utils</Filter>
     </ClInclude>
     <ClInclude Include="utils\Debug.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\CD2DObject.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\CD2DImage.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Element.h">
       <Filter>头文件\utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,16 +89,10 @@
     <ClCompile Include="Macros.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Element.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="utils\Arith.cpp">
       <Filter>源文件\utils</Filter>
     </ClCompile>
     <ClCompile Include="utils\CD2D.cpp">
-      <Filter>源文件\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\CD2DGif.cpp">
       <Filter>源文件\utils</Filter>
     </ClCompile>
     <ClCompile Include="utils\CD2DImage.cpp">
@@ -114,6 +108,18 @@
       <Filter>源文件\utils</Filter>
     </ClCompile>
     <ClCompile Include="utils\Debug.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\CD2DObject.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Element.cpp">
       <Filter>源文件\utils</Filter>
     </ClCompile>
   </ItemGroup>

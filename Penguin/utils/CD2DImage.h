@@ -5,7 +5,7 @@ extern HINSTANCE hAppInstance;
 #include <Dwrite.h>
 #include <atlstr.h>
 #include <wincodec.h>  
-#include "utils/Arith.h"
+#include "Arith.h"
 #define SAFE_RELEASE(P) if(P){P->Release() ; P = NULL ;}
 
 #ifndef _CD2DIMAGE_H

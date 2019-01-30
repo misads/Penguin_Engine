@@ -18,7 +18,6 @@
 
 #include "utils/utils.h"
 #include "Game.h"
-#include "window.h"
 #include "Types.h"
 
 #define MAX_LOADSTRING 100
@@ -177,7 +176,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    HANDLE gameInitThread = CreateThread(NULL, 0, GameInitThread, NULL, 0, NULL);
 
-   if (!Game.InitGame(MainWindow)) _ERROR(TEXT("游戏初始化失败"), true);
+   //if (!Game.InitGame(MainWindow)) _ERROR(TEXT("游戏初始化失败"), true);
 
    return TRUE;
 }

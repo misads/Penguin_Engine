@@ -1,10 +1,15 @@
 #pragma once
 
 #include <windef.h>
-#include "utils/CD2DGif.h"
+//#include "utils/CD2DGif.h"
+#include "utils/CD2DObject.h"
 #include "Macros.h"
 #include "Constants.h"
 #include "Types.h"
+#include "utils/Element.h"
+#include <vector>
+#include <list>
+#include <map>
 
 
 extern CD2D D2DC;
@@ -110,7 +115,8 @@ protected:
 	
 	map<string, CD2DImage>		m_mD2DImage;
 
-	map<string, CD2DGif>		m_mD2DGif;
+	map<string,CD2DObject>		m_renderObjects;
 
+	CElement					m_element;
 
 };

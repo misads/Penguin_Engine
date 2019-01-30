@@ -119,23 +119,32 @@ bool CGame::LoadRes(){
 	LoadImg("ice12", "Images/Image 1347.png");
 	LoadImg("ice13", "Images/Image 1348.png");
 	
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice1"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice2"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice3"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice4"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice5"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice6"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice7"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice8"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice9"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice10"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice11"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice12"], Vector(800, 600));
-	m_mD2DGif["ice"].AddImage(m_mD2DImage["ice13"], Vector(800, 600));
-	m_mD2DGif["ice"].SetFPS(50);
-	
-	
 
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice1"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice2"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice3"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice4"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice5"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice6"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice7"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice8"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice9"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice10"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice11"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice12"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice13"], Vector(800, 600));
+	m_renderObjects["ice"].SetFps(50);
+	m_renderObjects["ice"].SetCycles(2);
+	//m_renderObjects["ice"].Reset();
+	//m_element.SetObject(m_renderObjects["ice"]);
+	m_element.SetObject(L"微软雅黑", 35, L"测试的文字", D2DRGB(0, 0, 0));
+	m_element.SetShape(400, 300);
+	m_element.SetPos(.1, .1);
+	m_element.SetText(L"Enter...");
+	//m_element.SetLastTime(1.0);
+	m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
+	m_element.Show();
+	m_element.SetRenderTarget(D2DC.pRenderTarget());
 
 	///////////////
 	//	加载声音
@@ -231,7 +240,7 @@ bool CGame::SaveGame(int _which){
 bool CGame::AlterResolution(){
 
 	if (m_gameConfig.FULL_SCREEN){
-		Game.SetScreenResolution(m_gameConfig.SCREEN_WIDTH, m_gameConfig.SCREEN_HEIGHT);  //改分辨率
+		SetScreenResolution(m_gameConfig.SCREEN_WIDTH, m_gameConfig.SCREEN_HEIGHT);  //改分辨率
 	}
 
 	return true;
@@ -259,6 +268,9 @@ LRESULT CALLBACK CGame::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 			if (m_ResolutionSetting.nResolutionNow >= m_ResolutionSetting.vResolution.size())m_ResolutionSetting.nResolutionNow = 0;
 			MoveWindow(hWnd, 0, 0, m_ResolutionSetting.vResolution[m_ResolutionSetting.nResolutionNow].x,
 				m_ResolutionSetting.vResolution[m_ResolutionSetting.nResolutionNow].y, true);
+			break;
+		case VK_SPACE:
+			if (!(m_element.IsVisible())) m_element.Show();
 			break;
 		}
 		break;
@@ -375,88 +387,7 @@ bool CGame::OnFrameStart(HWND hWnd, float fTime){
 ////////////////////////////////////
 
 
-//                   ]]/`                          .]]].                                                                          
-//   ./@@\.          .@@\              ,@@@\`       @@/                .@@@@@@@@@@@@@@@@@@@@@@^       ]@\  .@@^ .@@^  =@@^        
-//     ,\@@@`@@@@@@@@@@@@@@@@@@@@`        [@@` .]]]]@@\]]]]]`                          .]@@@@[`        =@@`.@@^./@/   @@/         
-//       .[  O@@              =@@.   .@\`      .[[[[@@/[[[@@^                      ,/@@@/`           ,]]]]]]@@\]]/]]`=@@`         
-//           @@@              =@@.    ,\@@@\       =@@.  .@@^              /]    .@@/`   ..          =@@@@@@@@@@@@@@^@@@@@@@@@@@O 
-//  ,@@@].     .@@@@@@@@@@@@@@O          .`,@^    /@@`   .@@`  ,          .\@@\. .@@^  ,@@@\            ,@@/@@\/\.  =@@.    @@^   
-//    ,\@@@`                            ./@@@`  ]@@@.    ,@@.  @@@.   =@@.   ,@/ .@@^,@@@`  .@@^     ,/@@/ .@@^,@@\=@@@^   .@@^   
-//       ,    .@@@@@@@@@@@@@@@@^     .]@@@/ ,]@@@/.      .@@@@@@@`    =@@.       .@@^       .@@^     ,@`  ,/[[`  `,@@\@\   ,@@.   
-//            .@@^          =@@^      ,@`    .[` ,@@^                 =@@.   ./@`.@@^/@@`   .@@^    ..   .@@/      [`.@@`  =@/    
-//     ./@\`  .@@@@@@@@@@@@@@@@^    .]]]]]]]]]]]]]@@\]]]]]]]]]]]].    =@@../@@@` .@@^ ,@@@` .@@^    .@@@@@@@@@@@@@@   =@@..@@^    
-//     =@@`   .@@^          =@@^    .[[[[[[[[[[@@@@@@@@[[[[[[[[[[.    =@@.\@`    .@@^   ,@@/.@@^        =@@.   =@@.    \@\@@/     
-//    ,@@^    .@@\]]]]]]]]]]/@@^            ./@@/.@@^\@@\.            =@@.    .@@@@@`       .@@^       =@@@@@\/@@`     .\@@/      
-//   .@@@.    .[[[[[[[[[[[[[[[[`          ]@@@/. .@@^ .\@@@\`         =@@.     ,[           .@@^            ,@@@@@@\  ./@@@@\.    
-//  ,@@@`                           .]/@@@@/`    .@@^    ,\@@@@@@/    =@@@@@@@@@@@@@@@@@@@@@@@@^        ,]@@@[    ,./@@@` .\@@@`  
-//   .\^    O@@@@@@@@@@@@@@@@@@@@@   ,@/[        ,@@^         ,[`                           .@@^    .[@@@/`      ,@@@[      .\@@` 
-
-#define XOFFSET 230
-#define YOFFSET 35
-#define LOADANILEFT_INIT 100
-#define LOADANILEFT_ADD 3
-
-bool CGame::Render(float fTime){
-	
-	/*
-	static bool bPace = false;//因为一共就两帧 所以需要一个节拍
-	int i = 0;
-	char cBuff[30];
-	WCHAR wBuff[30];
-	set<int>::iterator it;
-	CString cstring;
-*/
-
-	static float fLastTime = 0;
-	static float fLoadShow = 0;
-	
-	if (fTime != 0){
-
-			if (fTime - fLastTime < 1/((MAX_FPS)*1.0f)){
-				return true;
-			}
-			else {
-				fLastTime = fTime;
-			}
-	}
-
-
-	
-	switch (m_gameState){
-	case GAME_MOTION:
-		break;
-		//渲染载入中
-	case GAME_LOADING:
-		break;
-	case GAME_RUNNING:
-
-		D2DC.BeginDraw();
-		D2DC.ClearScreen(D2D1::ColorF::Black);
-		//m_mD2DGif["ice"].Render(D2DC.pRenderTarget(), fTime, fPoint(0 , 0), fVector(400, 300));
-		D2DC.DrawBmp(m_mD2DImage["c"], 0, 0, 400, 300, 1.0F,0,0,100,100);
-		D2DC.DrawTextC(L"微软雅黑", 35, 1, 1, 0, 0, L"测试的文字", D2DRGB(255, 201, 14));
-		//m_mD2DGif["ice"].Render(D2DC.pRenderTarget(), fTime, fPoint(0, 0), fVector(400, 300));
-		//D2DC.DrawRectangle(10, 10, 150, 50, 2);
-		D2DC.EndDraw();
-
-		break;
-
-
-
-	}
-
-	
-
-
-
-
-
-	
-
-
-	return true;
-}
 
 void CGame::SetInstance(HINSTANCE instance){
 	m_Instance = instance;
-}
+}                                     
