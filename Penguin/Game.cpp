@@ -137,14 +137,20 @@ bool CGame::LoadRes(){
 	m_renderObjects["ice"].SetCycles(2);
 	//m_renderObjects["ice"].Reset();
 	//m_element.SetObject(m_renderObjects["ice"]);
-	m_element.SetObject(L"Œ¢»Ì—≈∫⁄", 35, L"≤‚ ‘µƒŒƒ◊÷", D2DRGB(0, 0, 0));
-	m_element.SetShape(400, 300);
-	m_element.SetPos(.1, .1);
-	m_element.SetText(L"Enter...");
-	//m_element.SetLastTime(1.0);
+	
+	//m_element.SetObject(L"Œ¢»Ì—≈∫⁄", 35, L"≤‚ ‘µƒŒƒ◊÷", D2DRGB(0, 0, 0));
+	//m_element.SetShape(400, 300);
+	//m_element.SetPos(.1, .1);
+	//m_element.SetText(L"Enter...");
+	//m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
+	//m_element.Show();
+	m_element.SetRenderTarget(D2DC.pRenderTarget());
+
+	m_element.SetObject(m_mD2DImage["ice1"]);
+	m_element.SetShape(800, 600);
+	m_element.SetPos(400, 300);
 	m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
 	m_element.Show();
-	m_element.SetRenderTarget(D2DC.pRenderTarget());
 
 	///////////////
 	//	º”‘ÿ…˘“Ù

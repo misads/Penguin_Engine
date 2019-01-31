@@ -65,6 +65,7 @@ public:
 	void Move(Direction direction, float _pixel);
 
 	void SetObject(CD2DObject _object);
+	void SetObject(CD2DImage _image);
 	void SetObject(LPCTSTR sFontName, FLOAT fFontSize,
 		CString sText, DWORD rgb = 0, FLOAT _Alpha = 1.0F, bool AlienToRight = false);
 
@@ -83,6 +84,7 @@ public:
 
 private:
 	CD2DObject	m_object;
+	CD2DImage	m_image;
 	D2DTEXT		m_text;
 	bool		m_visible;
 

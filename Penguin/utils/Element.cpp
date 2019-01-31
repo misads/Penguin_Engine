@@ -78,6 +78,11 @@ void CElement::SetObject(CD2DObject _object){
 	m_type = D2D_MOTION;
 }
 
+void CElement::SetObject(CD2DImage _image){
+	m_image = _image;
+	m_type = D2D_IMAGE;
+}
+
 void CElement::SetObject(LPCTSTR sFontName, FLOAT fFontSize,
 	CString sText, DWORD rgb, FLOAT _Alpha, bool AlienToRight){
 	m_text = D2DTEXT(sFontName, fFontSize,
@@ -183,6 +188,8 @@ void CElement::Render(float fTime, FLOAT _alpha){
 		D2DC.DrawTextC(m_text.sFontName, m_text.fFontSize, m_pos.x, m_pos.y, 
 			m_pos.x + m_shape.x, m_pos.y + m_shape.y, m_text.sText, m_text.rgb,_alpha, m_text.AlienToRight);
 		break;
+	case D2D_IMAGE:
+		D2DC.DrawBmp(m_image, m_pos.x - m_shape.x * 0.5f, m_pos.y - m_shape.y * 0.5f, m_shape.x, m_shape.y, _alpha);
 	default:
 
 
