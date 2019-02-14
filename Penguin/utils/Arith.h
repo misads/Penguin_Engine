@@ -1,84 +1,75 @@
-///////////////////////////
-//								  //	
-//		Arith 常用数学公式		  //
-//		版本号:20180211			  //
-//		CopyRight XY.2018-2020	  //
-//								  //
-///////////////////////////
+///////////////////////////////////
+//								 //	
+//		Arith 常用类型和公式	 //
+//		版本号:20190214			 //
+//		http://www.xyu.ink		 //
+//		使用请保留出处信息		 //
+//								 //
+///////////////////////////////////
 
 #include "math.h"
 
-#ifndef _H_ARITH_H
-#define _H_ARITH_H
 #pragma once
 
-#define MAX(a,b)    (((a) > (b)) ? (a) : (b))
-#define MIN(a,b)    (((a) < (b)) ? (a) : (b))
+#ifndef max
+	#define max(a,b)    (((a) > (b)) ? (a) : (b))
+#endif
+#ifndef min
+	#define min(a,b)    (((a) < (b)) ? (a) : (b))
+#endif
 
-
+template<typename  T>
 struct Point{
-	Point(int nx=0, int ny=0):x(nx),y(ny){}
-	int x;
-	int y;
+
+	Point(T _x = 0, T _y = 0) :x(_x), y(_y){}
+	T x;
+	T y;
+
 };
 
 
-struct fPoint{
-	fPoint(float fx = 0, float fy = 0) :x(fx), y(fy){}
-	float x;
-	float y;
+//Shape和Point的定义是相同的，只是变量名不同
+template<typename  T>
+struct Shape{
+
+	Shape(T _width = 0, T _height = 0) :width(_width), height(_height){}
+	T width;
+	T height;
+
 };
 
-struct dPoint{
-	dPoint(double dx = 0, double dy = 0) :x(dx), y(dy){}
-	double x;
-	double y;
-};
 
+template<typename  T>
 struct Vector{
 
-	Vector(Point P) :x(P.x),y(P.y){}
-	Vector(int nx=0, int ny=0) :x(nx), y(ny){}
-	int x;
-	int y;
+	Vector(T _x = 0, T _y = 0, T _length = 0) :x(_x), y(_y), length(_length){}
+	T x;
+	T y;
+	T _length;
+
 };
 
-struct fVector{
-	fVector(fPoint P) :x(P.x), y(P.y){}
-	fVector(float fx = 0, float fy = 0) :x(fx), y(fy){}
-	float x;
-	float y;
-};
 
+template<typename  T>
 struct Line{
-	Line(Point P1, Point P2) :a(P1), b(P2){}
+	Line(T a_x, T a_y, T b_x, T b_y) :a(Point(a_x, a_y), b(Point(b_x, b_y))){}
+	Line(Point _a, Point _b) :a(_a), b(_b){}
 	Point a;
 	Point b;
 
 };
 
-struct fLine{
-	fLine(fPoint P1,fPoint P2) :a(P1), b(P2){}
-	fPoint a;
-	fPoint b;
 
-};
-
+template<typename  T>
 struct Circle{
-	Circle(Point nPCenter, int nR) :p(nPCenter), r(nR){}
-	Point p;
-	int r;
+	Circle(T c_x, T c_y, T _r) :p(Point(c_x, c_y)), r(_r){}
+	Circle(Point _c, T _r) :p(_c), r(_r){}
+	Point c;
+	T r;
 };
 
-struct fCircle{
-	fCircle(fPoint fPCenter, float fR) :p(fPCenter), r(fR){}
-	fPoint p;
-	float r;
-};
-
-enum Direction
-{
-	nodirection=0,
+enum Direction{
+	null = 0,
 	up,
 	down,
 	left,
@@ -91,7 +82,7 @@ enum Direction
 
 
 
-
+/*
 class fRect;//前向声明
 
 namespace Arith{
@@ -141,5 +132,4 @@ protected:
 	fPoint m_fPCenter;
 
 };
-
-#endif
+*/

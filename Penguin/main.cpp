@@ -6,7 +6,7 @@
 #include "utils/Ini.h"
 
 #include "utils/CD2D.h"
-#include "utils/CD2DAnimation.h"
+//#include "utils/CD2DAnimation.h"
 #include "utils/DSound.h"
 
 #define MAX_LOADSTRING 100
@@ -148,7 +148,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	_TRY(Game.AlterResolution(), "无法全屏游戏，请使用窗口模式", true);
 
 	MainWindow = CreateWindow(szWindowClass, L"Penguin Demo", WS_OVERLAPPEDWINDOW,
-	   0, 0, Game.GetConfigResolution().x, Game.GetConfigResolution().y, NULL, NULL, hInst, NULL);
+	   0, 0, Game.GetConfigResolution().width, Game.GetConfigResolution().height, NULL, NULL, hInst, NULL);
 
 
    if (!MainWindow)

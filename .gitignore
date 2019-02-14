@@ -340,3 +340,5 @@ Penguin.txt
 Penguin/Release
 Penguin/*.cd
 Penguin/*.aps
+Penguin/utils/CD2DAnimation2.cpp
+Penguin/utils/CD2DAnimation2.h

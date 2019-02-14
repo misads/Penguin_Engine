@@ -51,18 +51,33 @@ public:
 	int GetDirection();
 	void SetDirection(Direction _direction);
 
-	fPoint GetPos();
+	Point<float> GetPos();
 	void SetPos(float _x, float _y);
 
-	Vector GetShape();
+	Shape<int> GetShape();
 	void SetShape(int _x, int _y);
 
 	float GetSpeed();
 	void SetSpeed(float _speed);
 
+	//加速度
+	float GetAcceleration();
+	//加速度
+	void SetAcceleration(Direction _direction, float _acceleration);
+
+	/*
+	参数
+	ALPHA_APPEAR 1
+	ALPHA_DISAPPEAR 2
+	ALPHA_APPEAR_DISAPPEAR 3
+	ALPHA_DISAPPEAR_APPEAR 4
+	*/
 	void SetAlphaChange(int _style, float _period_time);
 
-	void Move(Direction direction, float _pixel);
+	void Move(Direction _direction, float _pixel);
+
+	// 一直移动 速度是px/s
+	void MoveAlong(Direction _direction, float _speed);
 
 	void SetObject(CD2DObject _object);
 	void SetObject(CD2DImage _image);
@@ -91,16 +106,22 @@ private:
 	float		m_curTime;
 	float		m_lastTime;
 
-	int			m_direction;
-	fPoint		m_pos;
-	Vector		m_shape;
+	Direction	m_direction;
+	Point<float>m_pos;
+	Shape<int>	m_shape;
 	float		m_alpha;
 	float		m_speed;
+	Direction	m_acc_direction;
+	float		m_acc_speed;
 
 	int			m_type;
 	
 	ALPHA_CHANGE m_alphachange;
 
 	static		ID2D1HwndRenderTarget* m_renderTarget;
+
+	void		Move(float fTime);
+	void		Accelerate(float fTime);
+
 };
 

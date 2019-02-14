@@ -20,7 +20,7 @@ CD2DObject::~CD2DObject(){
 
 }
 
-bool CD2DObject::AddImage(CD2DImage _image, Vector _shape){
+bool CD2DObject::AddImage(CD2DImage _image, Shape<int> _shape){
 	D2DFrame gBuff;
 	gBuff.pBitmap = _image.pBitMap();
 	gBuff.shape = _shape;
@@ -40,7 +40,7 @@ bool CD2DObject::Render(ID2D1HwndRenderTarget* pRenderTarget, float fTime, float
 	D2D1_RECT_F drawRect = { centre_x - _width / 2.0f, centre_y - _height / 2.0f, centre_x + _width / 2.0f, centre_y + _height / 2.0f };
 
 
-	D2D1_RECT_F origRect = { 0, 0, m_frames[m_framenow].shape.x, m_frames[m_framenow].shape.y };
+	D2D1_RECT_F origRect = { 0, 0, m_frames[m_framenow].shape.width, m_frames[m_framenow].shape.height };
 
 
 	pRenderTarget->DrawBitmap(m_frames[m_framenow].pBitmap, drawRect, _alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, origRect);

@@ -10,7 +10,6 @@
 #pragma warning (disable: 4258) 
 
 using namespace DSound;
-using namespace Arith;
 
 
 HANDLE RenderMutex;//渲染的互斥体
@@ -38,12 +37,12 @@ CGame::~CGame(){
 bool CGame::InitGame(HWND hWnd){
 
 	m_ResolutionSetting.nResolutionNow = 0;
-	m_ResolutionSetting.vResolution.push_back(Vector(635,485));
-	m_ResolutionSetting.vResolution.push_back(Vector(889, 679));
-	m_ResolutionSetting.vResolution.push_back(Vector(1005, 768));
-	m_ResolutionSetting.vResolution.push_back(Vector(1245, 951));
-	m_ResolutionSetting.vResolution.push_back(Vector(1414, 1080));
-	m_ResolutionSetting.vResolution.push_back(Vector(1700, 1331));
+	m_ResolutionSetting.vResolution.push_back(Shape<int>(635, 485));
+	m_ResolutionSetting.vResolution.push_back(Shape<int>(889, 679));
+	m_ResolutionSetting.vResolution.push_back(Shape<int>(1005, 768));
+	m_ResolutionSetting.vResolution.push_back(Shape<int>(1245, 951));
+	m_ResolutionSetting.vResolution.push_back(Shape<int>(1414, 1080));
+	m_ResolutionSetting.vResolution.push_back(Shape<int>(1700, 1331));
 	
 	Sleep(10);
 	WaitForSingleObject(RenderMutex, INFINITE);
@@ -120,22 +119,22 @@ bool CGame::LoadRes(){
 	LoadImg("ice13", "Images/Image 1348.png");
 	
 
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice1"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice2"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice3"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice4"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice5"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice6"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice7"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice8"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice9"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice10"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice11"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice12"], Vector(800, 600));
-	m_renderObjects["ice"].AddImage(m_mD2DImage["ice13"], Vector(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice1"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice2"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice3"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice4"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice5"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice6"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice7"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice8"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice9"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice10"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice11"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice12"], Shape<int>(800, 600));
+	m_renderObjects["ice"].AddImage(m_mD2DImage["ice13"], Shape<int>(800, 600));
 	m_renderObjects["ice"].SetFps(50);
-	m_renderObjects["ice"].SetCycles(2);
-	//m_renderObjects["ice"].Reset();
+	m_renderObjects["ice"].SetCycles(-1);
+	m_renderObjects["ice"].Reset();
 	//m_element.SetObject(m_renderObjects["ice"]);
 	
 	//m_element.SetObject(L"微软雅黑", 35, L"测试的文字", D2DRGB(0, 0, 0));
@@ -144,13 +143,15 @@ bool CGame::LoadRes(){
 	//m_element.SetText(L"Enter...");
 	//m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
 	//m_element.Show();
-	m_element.SetRenderTarget(D2DC.pRenderTarget());
-
-	m_element.SetObject(m_mD2DImage["ice1"]);
-	m_element.SetShape(800, 600);
-	m_element.SetPos(400, 300);
-	m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
+	m_element.SetRenderTarget(D2DC.pRenderTarget()); //static 只需要设置一次
+	m_element.SetObject(m_renderObjects["ice"]);
+	//m_renderObjects["ice"].Reset();
+	//m_element.SetObject(m_mD2DImage["ice1"]);
+	m_element.SetShape(400, 300);
+	m_element.SetPos(100, 100);
+	//m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
 	m_element.Show();
+	m_element.MoveAlong((Direction)4, 100);
 
 	///////////////
 	//	加载声音
@@ -272,8 +273,8 @@ LRESULT CALLBACK CGame::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 		case VK_F8:
 			m_ResolutionSetting.nResolutionNow++;
 			if (m_ResolutionSetting.nResolutionNow >= m_ResolutionSetting.vResolution.size())m_ResolutionSetting.nResolutionNow = 0;
-			MoveWindow(hWnd, 0, 0, m_ResolutionSetting.vResolution[m_ResolutionSetting.nResolutionNow].x,
-				m_ResolutionSetting.vResolution[m_ResolutionSetting.nResolutionNow].y, true);
+			MoveWindow(hWnd, 0, 0, m_ResolutionSetting.vResolution[m_ResolutionSetting.nResolutionNow].width,
+				m_ResolutionSetting.vResolution[m_ResolutionSetting.nResolutionNow].height, true);
 			break;
 		case VK_SPACE:
 			if (!(m_element.IsVisible())) m_element.Show();
@@ -324,21 +325,21 @@ float CGame::fTime(){
 	}
 	return m_fTime;
 }
-Vector CGame::GetScreenResolution(){
+Shape<int> CGame::GetScreenResolution(){
 	DEVMODE NewDevMode;
 	EnumDisplaySettings(0, ENUM_CURRENT_SETTINGS, &NewDevMode);
-	static Vector _v;
-	_v = Vector(Point((int)NewDevMode.dmPelsWidth, (int)NewDevMode.dmPelsHeight));
+	static Shape<int> _v;
+	_v = Shape<int>((int)NewDevMode.dmPelsWidth, (int)NewDevMode.dmPelsHeight);
 	return _v;
 }
 
-Vector CGame::GetConfigResolution(){
-	return Vector(m_gameConfig.SCREEN_WIDTH,m_gameConfig.SCREEN_HEIGHT);
+Shape<int> CGame::GetConfigResolution(){
+	return Shape<int>(m_gameConfig.SCREEN_WIDTH, m_gameConfig.SCREEN_HEIGHT);
 
 }
 
 
-bool CGame::SetScreenResolution(Vector _v){
+bool CGame::SetScreenResolution(Shape<int> _v){
 
 	//return ChangeDisplaySettings(&NewDevMode, CDS_FULLSCREEN);
 
@@ -347,17 +348,17 @@ bool CGame::SetScreenResolution(Vector _v){
 	dmScreenSettings.dmSize = sizeof(dmScreenSettings);
 	dmScreenSettings.dmBitsPerPel = 32;
 	dmScreenSettings.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL;
-	dmScreenSettings.dmPelsWidth = _v.x;
-	dmScreenSettings.dmPelsHeight = _v.y;
+	dmScreenSettings.dmPelsWidth = _v.width;
+	dmScreenSettings.dmPelsHeight = _v.height;
 	bool bRetn = (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN)!=0);
-	if(bRetn) m_vResolution = Vector(_v);
+	if (bRetn) m_vResolution = Shape<int>(_v);
 	return bRetn;
 
 }
 
 
 bool CGame::SetScreenResolution(int _x, int _y){
-	return SetScreenResolution(Vector(Point(_x, _y)));
+	return SetScreenResolution(Shape<int>(_x, _y));
 }
 
 GAME_CONFIG CGame::GetConfig(){

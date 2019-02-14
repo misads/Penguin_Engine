@@ -7,7 +7,7 @@
 
 struct D2DFrame{
 	ID2D1Bitmap* pBitmap;
-	Vector shape;
+	Shape<int> shape;
 };
 
 class CD2DObject{
@@ -17,7 +17,7 @@ public:
 	CD2DObject(int _fps);
 	~CD2DObject();
 
-	bool AddImage(CD2DImage _image, Vector _shape);
+	bool AddImage(CD2DImage _image, Shape<int> _shape);
 
 	//这个函数只写在game的render函数里
 	bool Render(ID2D1HwndRenderTarget* pRenderTarget, float fTime, float centre_x, float centre_y, int _width, int _height, FLOAT _alpha = 1.0F);

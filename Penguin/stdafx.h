@@ -32,9 +32,7 @@
 #include "utils/utils.h"
 
 
-
 #include "utils/CD2D.h"
-#include "utils/CD2DAnimation.h"
 
 #include "Game.h"
 

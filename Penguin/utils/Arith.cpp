@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "Arith.h"
 #include <time.h>
-using namespace Arith;
 
 
 
 
-
+/*
 fRect::fRect(fPoint fPos, fVector fSize) :m_P1(fPos),
 m_P2(fPoint(fPos.x + fSize.x, fPos.y + fSize.y)), m_fWidth(fSize.x), m_fHeight(fSize.y),
 m_fPCenter(fPoint(fPos.x+fSize.x*0.5f,fPos.y+fSize.y*0.5f)){
@@ -57,5 +56,9 @@ namespace Arith{
 		bool bx = fabs((fR1.m_fWidth + fR2.m_fWidth)*0.5f) > fabs(fR1.m_fPCenter.x - fR2.m_fPCenter.x);
 		bool by = fabs((fR1.m_fHeight + fR2.m_fHeight)*0.5f) > fabs(fR1.m_fPCenter.y - fR2.m_fPCenter.y);
 		return (bx && by);
+		Direction d;
+		d = null;
+
 	}
 };
+*/

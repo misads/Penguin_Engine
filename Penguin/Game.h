@@ -74,9 +74,9 @@ public:
 
 	float			fTime();
 
-	Vector			GetScreenResolution();//获取当前屏幕分辨率
-	Vector			GetConfigResolution();//获取设置的屏幕分辨率
-	bool			SetScreenResolution(Vector _v);//设置屏幕分辨率
+	Shape<int>		GetScreenResolution();//获取当前屏幕分辨率
+	Shape<int>		GetConfigResolution();//获取设置的屏幕分辨率
+	bool			SetScreenResolution(Shape<int> _v);//设置屏幕分辨率
 	bool			SetScreenResolution(int _x, int _y);
 	GAME_CONFIG		GetConfig();
 	BOOL 			IsVerticalSync();
@@ -96,7 +96,7 @@ protected:
 	float			m_fTime;//从游戏开始到现在经过的时间
 	float			m_fTimeLeft;//还剩下的游戏时间，可以为无穷
 
-	Vector			m_vResolution;//分辨率
+	Shape<int>		m_vResolution;//分辨率
 	
 	GAME_CONFIG		m_gameConfig;//游戏设置
 

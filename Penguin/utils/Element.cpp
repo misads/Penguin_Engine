@@ -4,6 +4,8 @@
 
 CElement::CElement(){
 	m_alphachange.style = 0;
+	m_speed = 0;
+	m_acc_speed = 0;
 }
 
 CElement::~CElement()
@@ -18,18 +20,18 @@ void CElement::SetDirection(Direction _direction){
 }
 
 
-fPoint CElement::GetPos(){
+Point<float> CElement::GetPos(){
 	return m_pos;
 }
 void CElement::SetPos(float _x, float _y){
-	m_pos = fPoint(_x, _y);
+	m_pos = Point<float>(_x, _y);
 }
 
-Vector CElement::GetShape(){
+Shape<int> CElement::GetShape(){
 	return m_shape;
 }
 void CElement::SetShape(int _x, int _y){
-	m_shape = Vector(_x, _y);
+	m_shape = Shape<int>(_x, _y);
 }
 
 
@@ -39,6 +41,16 @@ float CElement::GetSpeed(){
 void CElement::SetSpeed(float _speed){
 	m_speed = _speed;
 }
+
+float CElement::GetAcceleration(){
+	return m_acc_speed;
+}
+
+void CElement::SetAcceleration(Direction _direction, float _speed){
+	m_acc_direction = _direction;
+	m_acc_speed = _speed;
+}
+
 
 void CElement::SetAlphaChange(int _style, float _period_time){
 	m_alphachange.style = _style;
@@ -65,12 +77,17 @@ void CElement::SetAlphaChange(int _style, float _period_time){
 	}
 }
 
-void CElement::Move(Direction direction, float _pixel){
-	if (direction == 1)m_pos = fPoint(m_pos.x, m_pos.y - _pixel);
-	if (direction == 2)m_pos = fPoint(m_pos.x, m_pos.y + _pixel);
-	if (direction == 3)m_pos = fPoint(m_pos.x - _pixel, m_pos.y);
-	if (direction == 4)m_pos = fPoint(m_pos.x + _pixel, m_pos.y);
+void CElement::Move(Direction _direction, float _pixel){
+	if (_direction == 1)m_pos = Point<float>(m_pos.x, m_pos.y - _pixel);
+	if (_direction == 2)m_pos = Point<float>(m_pos.x, m_pos.y + _pixel);
+	if (_direction == 3)m_pos = Point<float>(m_pos.x - _pixel, m_pos.y);
+	if (_direction == 4)m_pos = Point<float>(m_pos.x + _pixel, m_pos.y);
 
+}
+
+void CElement::MoveAlong(Direction _direction, float _speed){
+	m_direction = _direction;
+	m_speed = _speed;
 }
 
 void CElement::SetObject(CD2DObject _object){
@@ -107,6 +124,10 @@ void CElement::Render(float fTime, FLOAT _alpha){
 	if (m_renderTarget == nullptr) throw "renderTarget null error";
 
 	if (!m_visible)return;
+
+	if (m_speed != 0){
+		Move(fTime);
+	}
 
 	if (m_alphachange.style != 0){
 		if (m_alphachange.previous_time == 0){
@@ -165,7 +186,7 @@ void CElement::Render(float fTime, FLOAT _alpha){
 	}
 
 	if (m_type == D2D_MOTION){
-		m_object.Render(m_renderTarget, fTime, m_pos.x, m_pos.y, m_shape.x, m_shape.y, _alpha);
+		m_object.Render(m_renderTarget, fTime, m_pos.x, m_pos.y, m_shape.width, m_shape.height, _alpha);
 		return;
 	}
 
@@ -186,10 +207,10 @@ void CElement::Render(float fTime, FLOAT _alpha){
 	{
 	case D2D_TEXT:
 		D2DC.DrawTextC(m_text.sFontName, m_text.fFontSize, m_pos.x, m_pos.y, 
-			m_pos.x + m_shape.x, m_pos.y + m_shape.y, m_text.sText, m_text.rgb,_alpha, m_text.AlienToRight);
+			m_pos.x + m_shape.width, m_pos.y + m_shape.height, m_text.sText, m_text.rgb,_alpha, m_text.AlienToRight);
 		break;
 	case D2D_IMAGE:
-		D2DC.DrawBmp(m_image, m_pos.x - m_shape.x * 0.5f, m_pos.y - m_shape.y * 0.5f, m_shape.x, m_shape.y, _alpha);
+		D2DC.DrawBmp(m_image, m_pos.x - m_shape.width * 0.5f, m_pos.y - m_shape.height * 0.5f, m_shape.width, m_shape.height, _alpha);
 	default:
 
 
@@ -203,6 +224,7 @@ void CElement::Show(){
 	{
 	case D2D_MOTION:
 		m_object.Reset();
+		m_visible = true;
 		break;
 	default:
 		m_visible = true;
@@ -224,3 +246,30 @@ bool CElement::IsVisible(){
 }
 
 ID2D1HwndRenderTarget* CElement::m_renderTarget = nullptr;
+
+void CElement::Move(float fTime){
+	static float previous_time = 0;
+	if (previous_time == 0){
+		previous_time = fTime;
+		return;
+	}
+	float delta_time = fTime - previous_time;
+	Move(m_direction, m_speed * delta_time);
+	previous_time = fTime;
+
+
+}
+
+void CElement::Accelerate(float fTime){
+	static float previous_time = 0;
+	if (previous_time == 0){
+		previous_time = fTime;
+		return;
+	}
+	float delta_time = fTime - previous_time;
+
+	Move(m_direction, m_speed * delta_time);
+	previous_time = fTime;
+
+
+}

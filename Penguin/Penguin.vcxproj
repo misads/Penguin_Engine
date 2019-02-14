@@ -96,6 +96,7 @@
     <ClInclude Include="utils\DSound.h" />
     <ClInclude Include="utils\Element.h" />
     <ClInclude Include="utils\Ini.h" />
+    <ClInclude Include="utils\Transforms.h" />
     <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +119,7 @@
     <ClCompile Include="utils\DSound.cpp" />
     <ClCompile Include="utils\Element.cpp" />
     <ClCompile Include="utils\Ini.cpp" />
+    <ClCompile Include="utils\Transforms.cpp" />
     <ClCompile Include="utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>

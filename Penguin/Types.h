@@ -33,6 +33,6 @@ enum GAME_MODE{
 };
 
 struct ResolutionSetting{
-	vector<Vector>	vResolution;
-	int				nResolutionNow;
+	vector<Shape<int>>	vResolution;
+	int					nResolutionNow;
 };
