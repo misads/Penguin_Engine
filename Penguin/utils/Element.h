@@ -1,15 +1,13 @@
 #pragma once
 #include "Arith.h"
 #include "CD2DObject.h"
+#include "Transforms.h"
 
 #define D2D_MOTION 1
 #define D2D_IMAGE 2
 #define D2D_TEXT 3
 
-#define ALPHA_APPEAR 1
-#define ALPHA_DISAPPEAR 2
-#define ALPHA_APPEAR_DISAPPEAR 3
-#define ALPHA_DISAPPEAR_APPEAR 4
+
 
 extern CD2D D2DC;
 
@@ -37,12 +35,6 @@ struct D2DTEXT{
 	bool AlienToRight;
 };
 
-struct ALPHA_CHANGE{
-	int style;
-	float period_time;
-	float previous_time;
-	int increase;
-};
 class CElement{
 public:
 	CElement();
@@ -65,19 +57,14 @@ public:
 	//加速度
 	void SetAcceleration(Direction _direction, float _acceleration);
 
-	/*
-	参数
-	ALPHA_APPEAR 1
-	ALPHA_DISAPPEAR 2
-	ALPHA_APPEAR_DISAPPEAR 3
-	ALPHA_DISAPPEAR_APPEAR 4
-	*/
-	void SetAlphaChange(int _style, float _period_time);
+	float GetAlpha();
+	void SetAlpha(float _alpha);
 
 	void Move(Direction _direction, float _pixel);
+	void Move(float _x, float _y);
 
-	// 一直移动 速度是px/s
-	void MoveAlong(Direction _direction, float _speed);
+	
+	void AddTranform(BaseTransform*);
 
 	void SetObject(CD2DObject _object);
 	void SetObject(CD2DImage _image);
@@ -91,37 +78,42 @@ public:
 
 	void SetRenderTarget(ID2D1HwndRenderTarget* pRenderTarget);
 
-	void Render(float fTime,FLOAT _alpha=1.0F);
+	void Render(float fTime);
 
+	void Hide();
 	void Show();
 
 	bool IsVisible();
 
 private:
-	CD2DObject	m_object;
-	CD2DImage	m_image;
-	D2DTEXT		m_text;
-	bool		m_visible;
+	CD2DObject		m_object;
+	CD2DImage		m_image;
+	D2DTEXT			m_text;
+	bool			m_visible;
 
-	float		m_curTime;
-	float		m_lastTime;
+	float			m_curTime;
+	float			m_lastTime;
 
-	Direction	m_direction;
+	Direction		m_direction;
 	Point<float>m_pos;
-	Shape<int>	m_shape;
-	float		m_alpha;
-	float		m_speed;
-	Direction	m_acc_direction;
-	float		m_acc_speed;
-
-	int			m_type;
+	Shape<int>		m_shape;
+	float			m_alpha;
 	
-	ALPHA_CHANGE m_alphachange;
+	float			m_x_speed;
+	float			m_y_speed;
 
-	static		ID2D1HwndRenderTarget* m_renderTarget;
 
-	void		Move(float fTime);
-	void		Accelerate(float fTime);
+	Direction		m_acc_direction;
+	float			m_acc_speed;
 
+	int				m_type;
+
+	static			ID2D1HwndRenderTarget* m_renderTarget;
+
+	/*
+	void			Move(float fTime);
+	void			Accelerate(float fTime);
+*/
+	vector<BaseTransform*>	m_transforms;
 };
 

@@ -69,15 +69,15 @@ struct Circle{
 };
 
 enum Direction{
-	null = 0,
-	up,
-	down,
-	left,
-	right,
-	up_left,
-	up_right,
-	down_left,
-	down_right
+	Null = 0,
+	Up,
+	Down,
+	Left,
+	Right,
+	Up_Left,
+	Up_Right,
+	Down_Left,
+	Down_Right
 };
 
 

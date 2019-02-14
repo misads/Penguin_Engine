@@ -151,8 +151,9 @@ bool CGame::LoadRes(){
 	m_element.SetPos(100, 100);
 	//m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
 	m_element.Show();
-	m_element.MoveAlong((Direction)4, 100);
-
+	//m_element.MoveAlong((Direction)4, 100);
+	m_element.AddTranform(new Translation(Down_Right, 200));
+	m_element.AddTranform(new AlphaChange(2,3.0f));
 	///////////////
 	//	º”‘ÿ…˘“Ù
 	/////////////

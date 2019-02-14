@@ -3,13 +3,15 @@
 
 
 CElement::CElement(){
-	m_alphachange.style = 0;
-	m_speed = 0;
+	m_alpha = 1.0f;
 	m_acc_speed = 0;
+
 }
 
-CElement::~CElement()
-{
+CElement::~CElement(){
+	for (int i = 0; i < m_transforms.size(); i++){
+		delete m_transforms[i];
+	}
 }
 
 int CElement::GetDirection(){
@@ -36,10 +38,10 @@ void CElement::SetShape(int _x, int _y){
 
 
 float CElement::GetSpeed(){
-	return m_speed;
+	return 0;
 }
 void CElement::SetSpeed(float _speed){
-	m_speed = _speed;
+	
 }
 
 float CElement::GetAcceleration(){
@@ -51,30 +53,13 @@ void CElement::SetAcceleration(Direction _direction, float _speed){
 	m_acc_speed = _speed;
 }
 
+float CElement::GetAlpha(){
+	return m_alpha;
+}
 
-void CElement::SetAlphaChange(int _style, float _period_time){
-	m_alphachange.style = _style;
-	m_alphachange.period_time = _period_time;
-	m_alphachange.previous_time = 0;
-	switch (_style){
-	case ALPHA_APPEAR:
-		m_alpha = 0.0f;
-		break;
-	case ALPHA_DISAPPEAR:
-		m_alpha = 1.0f;
-		break;
-	case ALPHA_APPEAR_DISAPPEAR:
-		m_alpha = 0.0f;
-		m_alphachange.increase = 1;
-		break;
-	case ALPHA_DISAPPEAR_APPEAR:
-		m_alpha = 1.0f;
-		m_alphachange.increase = -1;
-		break;
-	default:
-		m_alpha = 1.0f;
-		break;
-	}
+void CElement::SetAlpha(float _alpha){
+	m_alpha = _alpha;
+
 }
 
 void CElement::Move(Direction _direction, float _pixel){
@@ -85,9 +70,20 @@ void CElement::Move(Direction _direction, float _pixel){
 
 }
 
-void CElement::MoveAlong(Direction _direction, float _speed){
-	m_direction = _direction;
-	m_speed = _speed;
+void CElement::Move(float _x, float _y){
+
+	m_pos = Point<float>(m_pos.x + _x, m_pos.y + _y);
+
+}
+
+
+
+
+
+void CElement::AddTranform(BaseTransform* _transform){
+	_transform->SetElement(this);
+	_transform->Init();
+	m_transforms.push_back(_transform);
 }
 
 void CElement::SetObject(CD2DObject _object){
@@ -120,73 +116,19 @@ void CElement::SetRenderTarget(ID2D1HwndRenderTarget* pRenderTarget){
 	m_renderTarget = pRenderTarget;
 }
 
-void CElement::Render(float fTime, FLOAT _alpha){
+void CElement::Render(float fTime){
 	if (m_renderTarget == nullptr) throw "renderTarget null error";
 
 	if (!m_visible)return;
 
-	if (m_speed != 0){
-		Move(fTime);
+	for (int i = 0; i < m_transforms.size(); i++){
+		m_transforms[i]->Transform(fTime);
 	}
 
-	if (m_alphachange.style != 0){
-		if (m_alphachange.previous_time == 0){
-			m_alphachange.previous_time = fTime;
-			return;
-		}
-		float deltatime = fTime - m_alphachange.previous_time;
-		switch (m_alphachange.style){
-		case ALPHA_APPEAR:
-			if (m_alpha >= 1.0){
-				m_alphachange.style = 0;
-				_alpha = 1.0f;
-			}
-			else{
-				m_alpha += deltatime / m_alphachange.period_time;
-			}
-			break;
-		case ALPHA_DISAPPEAR:
-			if (m_alpha <= 0.0){
-				m_alphachange.style = 0;
-				_alpha = 0.0f;
-				m_visible = false;
-			}
-			else{
-				m_alpha -= deltatime / m_alphachange.period_time;
-			}
-			break;
-		case ALPHA_APPEAR_DISAPPEAR:
-			if (m_alpha >= 1.0){
-				_alpha = 1.0f;
-				m_alphachange.increase = -1;
-			}
-			else if (m_alphachange.increase == -1 && m_alpha <= 0){
-				_alpha = 0.0f;
-				m_alphachange.increase = 1;
-			}
-			m_alpha += m_alphachange.increase * (deltatime / m_alphachange.period_time);
-			break;
-		case ALPHA_DISAPPEAR_APPEAR:
-			if (m_alpha <= 0.0){
-				_alpha = 0.0f;
-				m_alphachange.increase = 1;
-			}
-			else if (m_alphachange.increase == 1 && m_alpha >= 1.0){
-				_alpha = 1.0f;
-				m_alphachange.increase = -1;
-			}
-			m_alpha += m_alphachange.increase * (deltatime / m_alphachange.period_time);
-		default:
-			_alpha = 1.0f;
-			break;
-		}
-		m_alphachange.previous_time = fTime;
-		_alpha = m_alpha;
 
-	}
 
 	if (m_type == D2D_MOTION){
-		m_object.Render(m_renderTarget, fTime, m_pos.x, m_pos.y, m_shape.width, m_shape.height, _alpha);
+		m_object.Render(m_renderTarget, fTime, m_pos.x, m_pos.y, m_shape.width, m_shape.height, m_alpha);
 		return;
 	}
 
@@ -207,16 +149,20 @@ void CElement::Render(float fTime, FLOAT _alpha){
 	{
 	case D2D_TEXT:
 		D2DC.DrawTextC(m_text.sFontName, m_text.fFontSize, m_pos.x, m_pos.y, 
-			m_pos.x + m_shape.width, m_pos.y + m_shape.height, m_text.sText, m_text.rgb,_alpha, m_text.AlienToRight);
+			m_pos.x + m_shape.width, m_pos.y + m_shape.height, m_text.sText, m_text.rgb,m_alpha, m_text.AlienToRight);
 		break;
 	case D2D_IMAGE:
-		D2DC.DrawBmp(m_image, m_pos.x - m_shape.width * 0.5f, m_pos.y - m_shape.height * 0.5f, m_shape.width, m_shape.height, _alpha);
+		D2DC.DrawBmp(m_image, m_pos.x - m_shape.width * 0.5f, m_pos.y - m_shape.height * 0.5f, m_shape.width, m_shape.height, m_alpha);
 	default:
 
 
 		break;
 	}
 	
+}
+
+void CElement::Hide(){
+	m_visible = false;
 }
 
 void CElement::Show(){
@@ -246,7 +192,7 @@ bool CElement::IsVisible(){
 }
 
 ID2D1HwndRenderTarget* CElement::m_renderTarget = nullptr;
-
+/*
 void CElement::Move(float fTime){
 	static float previous_time = 0;
 	if (previous_time == 0){
@@ -272,4 +218,4 @@ void CElement::Accelerate(float fTime){
 	previous_time = fTime;
 
 
-}
+}*/
