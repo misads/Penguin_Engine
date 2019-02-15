@@ -1,6 +1,7 @@
 #include"stdafx.h"
 
 #include "CD2D.h"
+#include "CD2DImage.h"
 
 #pragma warning (disable: 4244) 
 
@@ -60,7 +61,7 @@ BOOL CD2D::CreateD2DResource(HWND m_hWnd, bool IsVerticalSync)
 		hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_pD2DFactory);
 		if (FAILED(hr))
 		{
-			AfxMessageBox(_T("创建factory失败！"));
+			Fatal(_T("创建factory失败！"));
 			return (FALSE);
 		}
 
@@ -83,10 +84,10 @@ BOOL CD2D::CreateD2DResource(HWND m_hWnd, bool IsVerticalSync)
 			),
 			&m_pRenderTarget
 			);
-		m_pRenderTarget->SetAntialiasMode(D2D1_ANTIALIAS_MODE_ALIASED);
+		m_pRenderTarget->SetAntialiasMode(D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
 		if (FAILED(hr))
 		{
-			AfxMessageBox(_T("创建target失败！"));
+			Fatal(_T("创建target失败！"));
 			return (FALSE);
 		}
 
@@ -109,7 +110,7 @@ BOOL CD2D::CreateD2DResource(HWND m_hWnd, bool IsVerticalSync)
 			);
 		if (FAILED(hr))
 		{
-			AfxMessageBox(_T("创建brush失败！"));
+			Fatal(_T("创建brush失败！"));
 			return (FALSE);
 		}
 		//
@@ -122,7 +123,7 @@ BOOL CD2D::CreateD2DResource(HWND m_hWnd, bool IsVerticalSync)
 			);
 		if (FAILED(hr))
 		{
-			AfxMessageBox(_T("创建DirectWrite失败！"));
+			Fatal(_T("创建DirectWrite失败！"));
 			return (FALSE);
 		}
 
@@ -156,7 +157,7 @@ BOOL CD2D::DrawTextB(LPCTSTR sFontName, FLOAT fFontSize,
 		);
 	if (FAILED(hr))
 	{
-		AfxMessageBox(_T("创建DirectWrite失败！"));
+		Fatal(_T("创建DirectWrite失败！"));
 		return(FALSE);
 	}
 
@@ -244,6 +245,43 @@ BOOL CD2D::DrawTextC(LPCTSTR sFontName, FLOAT fFontSize,
 	return (TRUE);
 }
 
+BOOL CD2D::DrawGeometry(ID2D1Bitmap* _bitmap){
+
+	HRESULT hr;
+
+	ID2D1RectangleGeometry* m_pRectangleGeometry = NULL;
+	ID2D1TransformedGeometry *m_pTransformedGeometry = NULL;
+
+	ID2D1BitmapBrush *m_pBitmapBrush = NULL;
+	
+	m_pRenderTarget->CreateBitmapBrush(_bitmap,&m_pBitmapBrush);
+
+	m_pBitmapBrush->SetTransform(
+		D2D1::Matrix3x2F::Rotation(
+		10.0f,
+		D2D1::Point2F(30.f, 30.f))
+		);
+
+	m_pD2DFactory->CreateRectangleGeometry(D2D1::RectF(0, 0, 20, 20), &m_pRectangleGeometry);
+
+	hr = m_pD2DFactory->CreateTransformedGeometry(
+		m_pRectangleGeometry,
+		D2D1::Matrix3x2F::Rotation(
+		10.0f,
+		D2D1::Point2F(30.f, 30.f)),
+		&m_pTransformedGeometry
+		);
+
+	//m_pRenderTarget->FillGeometry
+	m_pRenderTarget->FillGeometry(m_pTransformedGeometry, m_pBitmapBrush);
+	//m_pRenderTarget->DrawGeometry(m_pTransformedGeometry, m_pBlackBrush, 3);
+	
+	SAFE_RELEASE(m_pRectangleGeometry);
+	SAFE_RELEASE(m_pTransformedGeometry);
+	return TRUE;
+
+}
+
 BOOL CD2D::DrawRectangle(FLOAT left, FLOAT top, FLOAT right, FLOAT bottom,FLOAT _width)
 {
 	//m_pRenderTarget->BeginDraw();
@@ -267,7 +305,7 @@ BOOL CD2D::DrawRectangle(FLOAT left, FLOAT top, FLOAT right, FLOAT bottom,FLOAT 
 	//}
 	return (TRUE);
 }
-BOOL CD2D::DrawBmp(CD2DImage Image, FLOAT _x, FLOAT _y, FLOAT _width, FLOAT _height, FLOAT alpha, int nSrcX, int nSrcY, int nSrcWidth, int nSrcHeight){
+BOOL CD2D::DrawBitmap(CD2DImage Image, FLOAT _x, FLOAT _y, FLOAT _width, FLOAT _height, FLOAT alpha, int nSrcX, int nSrcY, int nSrcWidth, int nSrcHeight){
 
 	//D2D1_SIZE_F size = m_pRenderTarget->GetSize();
 
@@ -278,7 +316,8 @@ BOOL CD2D::DrawBmp(CD2DImage Image, FLOAT _x, FLOAT _y, FLOAT _width, FLOAT _hei
 
 	D2D1_RECT_F origRect = { nSrcX, nSrcY, nSrcX + nSrcWidth, nSrcY + nSrcHeight };
 
-	m_pRenderTarget->DrawBitmap(Image.pBitMap(), drawRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, origRect);
+
+	m_pRenderTarget->DrawBitmap(Image.GetBitMap(), drawRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, origRect);
 
 	return TRUE;
 }
@@ -294,6 +333,10 @@ void CD2D::Cleanup(void)
 	
 }
 
-ID2D1HwndRenderTarget* CD2D::pRenderTarget(){
+
+
+ID2D1HwndRenderTarget* CD2D::m_pRenderTarget = NULL;
+
+ID2D1HwndRenderTarget* CD2D::GetRenderTarget(){
 	return m_pRenderTarget;
 }

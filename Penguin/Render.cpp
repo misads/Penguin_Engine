@@ -38,16 +38,16 @@ bool CGame::Render(float fTime){
 		D2DC.BeginDraw();
 		D2DC.ClearScreen(D2D1::ColorF::Black);
 		//m_mD2DGif["ice"].Render(D2DC.pRenderTarget(), fTime, fPoint(0 , 0), fVector(400, 300));
-		D2DC.DrawBmp(m_mD2DImage["c"], 0, 0, 400, 300, 1.0F, 0, 0, 100, 100);
+		//D2DC.DrawBmp(m_mD2DImage["c"], 0, 0, 400, 300, 1.0F, 0, 0, 100, 100);
 
-		D2DC.DrawBmp(m_mD2DImage["c"], 400, 300, 100, 100, 1.0F, 0, 0, 100, 100);
+		//D2DC.DrawBmp(m_mD2DImage["c"], 400, 300, 100, 100, 1.0F, 0, 0, 100, 100);
 		//D2DC.DrawTextC(L"Î¢ÈíÑÅºÚ", 35, 1, 1, 0, 0, L"²âÊÔµÄÎÄ×Ö", D2DRGB(0, 0, 0));
 		//m_renderObjects["ice"].Render(D2DC.pRenderTarget(), fTime,400,300,400,300);
 		//m_renderObjects["ice"].Render(D2DC.pRenderTarget(), fTime, 600, 300, 400, 300);
 		//m_mD2DGif["ice"].Render(D2DC.pRenderTarget(), fTime, fPoint(0, 0), fVector(400, 300));
 		//D2DC.DrawRectangle(10, 10, 150, 50, 2);
 		m_element.Render(fTime);
-
+		//D2DC.DrawGeometry(m_mD2DImage["c"].GetBitMap());
 		D2DC.EndDraw();
 
 		break;

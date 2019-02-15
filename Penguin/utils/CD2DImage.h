@@ -5,11 +5,8 @@ extern HINSTANCE hAppInstance;
 #include <Dwrite.h>
 #include <atlstr.h>
 #include <wincodec.h>  
+#include "CD2D.h"
 #include "Arith.h"
-#define SAFE_RELEASE(P) if(P){P->Release() ; P = NULL ;}
-
-#ifndef _CD2DIMAGE_H
-#define _CD2DIMAGE_H
 
 #pragma once
 
@@ -17,16 +14,18 @@ class CD2DImage{
 public:
 	CD2DImage();
 	~CD2DImage();
-	//从文件载入图像
-	BOOL LoadImageFromFile(ID2D1HwndRenderTarget* pRenderTarget,LPCTSTR lpPath);
-	//从资源载入图像
-	BOOL LoadImageFromRes(ID2D1HwndRenderTarget* pRenderTarget, HINSTANCE hInstance,long resId, LPCTSTR resourceType);
+	
+	BOOL LoadImageFromFile(LPCTSTR lpPath);
+	
+	BOOL LoadImageFromRes(HINSTANCE hInstance,long resId, LPCTSTR resourceType);
 
-	ID2D1Bitmap * pBitMap();
+	ID2D1Bitmap *				GetBitMap();
+	ID2D1BitmapBrush *			GetBitMapBrush();
+	Shape<int>					GetShape();
 private:
 
 	IWICImagingFactory *		m_pImageFactory;
 	ID2D1Bitmap *				m_pBitmap;
+	ID2D1BitmapBrush *			m_pBitmapBrush;
+	Shape<int>					m_shape;
 };
-
-#endif

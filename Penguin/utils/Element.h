@@ -1,6 +1,7 @@
 #pragma once
 #include "Arith.h"
 #include "CD2DObject.h"
+#include "CD2DImage.h"
 #include "Transforms.h"
 
 #define D2D_MOTION 1
@@ -52,11 +53,6 @@ public:
 	float GetSpeed();
 	void SetSpeed(float _speed);
 
-	//加速度
-	float GetAcceleration();
-	//加速度
-	void SetAcceleration(Direction _direction, float _acceleration);
-
 	float GetAlpha();
 	void SetAlpha(float _alpha);
 
@@ -101,10 +97,6 @@ private:
 	
 	float			m_x_speed;
 	float			m_y_speed;
-
-
-	Direction		m_acc_direction;
-	float			m_acc_speed;
 
 	int				m_type;
 

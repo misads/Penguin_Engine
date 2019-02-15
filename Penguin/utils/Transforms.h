@@ -82,4 +82,17 @@ private:
 	int m_increase;
 };
 
+class Follow : public BaseTransform{
+public:
+	Follow(CElement* target = NULL, float x_offset = 0, float y_offset = 0);
+	~Follow();
+
+	void Init();
+	void Transform(float fTime);
+
+private:
+	CElement* m_target;
+	float m_x_offset;
+	float m_y_offset;
+};
 

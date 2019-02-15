@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "CD2DImage.h"
 #include "CD2DObject.h"
 
 CD2DObject::CD2DObject(){
@@ -22,7 +23,7 @@ CD2DObject::~CD2DObject(){
 
 bool CD2DObject::AddImage(CD2DImage _image, Shape<int> _shape){
 	D2DFrame gBuff;
-	gBuff.pBitmap = _image.pBitMap();
+	gBuff.pBitmap = _image.GetBitMap();
 	gBuff.shape = _shape;
 	m_frames.push_back(gBuff);
 	return true;

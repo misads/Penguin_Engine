@@ -80,7 +80,7 @@ bool CGame::InitGame(HWND hWnd){
 }
 
 
-#define LoadImg(alias,path)  	m_mD2DImage.insert(pair<string, CD2DImage>(alias, d2dImageBuf));m_mD2DImage[alias].LoadImageFromFile(D2DC.pRenderTarget(), TEXT(path));
+#define LoadImg(alias,path)  	m_mD2DImage.insert(pair<string, CD2DImage>(alias, d2dImageBuf));m_mD2DImage[alias].LoadImageFromFile(TEXT(path));
 //#define LoadBlock(alias,value) 	m_mBlock.insert(pair<string, char>(alias, (char)value));
 
 
@@ -143,7 +143,7 @@ bool CGame::LoadRes(){
 	//m_element.SetText(L"Enter...");
 	//m_element.SetAlphaChange(ALPHA_DISAPPEAR_APPEAR, 1.0);
 	//m_element.Show();
-	m_element.SetRenderTarget(D2DC.pRenderTarget()); //static 只需要设置一次
+	m_element.SetRenderTarget(D2DC.GetRenderTarget()); //static 只需要设置一次
 	m_element.SetObject(m_renderObjects["ice"]);
 	//m_renderObjects["ice"].Reset();
 	//m_element.SetObject(m_mD2DImage["ice1"]);
@@ -153,7 +153,7 @@ bool CGame::LoadRes(){
 	m_element.Show();
 	//m_element.MoveAlong((Direction)4, 100);
 	m_element.AddTranform(new Translation(Down_Right, 200));
-	m_element.AddTranform(new AlphaChange(2,3.0f));
+	m_element.AddTranform(new AlphaChange(ALPHA_DISAPPEAR, 3.0f));
 	///////////////
 	//	加载声音
 	/////////////

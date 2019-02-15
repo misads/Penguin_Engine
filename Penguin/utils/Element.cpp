@@ -4,8 +4,6 @@
 
 CElement::CElement(){
 	m_alpha = 1.0f;
-	m_acc_speed = 0;
-
 }
 
 CElement::~CElement(){
@@ -38,20 +36,13 @@ void CElement::SetShape(int _x, int _y){
 
 
 float CElement::GetSpeed(){
+	throw 111;
 	return 0;
 }
 void CElement::SetSpeed(float _speed){
 	
 }
 
-float CElement::GetAcceleration(){
-	return m_acc_speed;
-}
-
-void CElement::SetAcceleration(Direction _direction, float _speed){
-	m_acc_direction = _direction;
-	m_acc_speed = _speed;
-}
 
 float CElement::GetAlpha(){
 	return m_alpha;
@@ -152,7 +143,7 @@ void CElement::Render(float fTime){
 			m_pos.x + m_shape.width, m_pos.y + m_shape.height, m_text.sText, m_text.rgb,m_alpha, m_text.AlienToRight);
 		break;
 	case D2D_IMAGE:
-		D2DC.DrawBmp(m_image, m_pos.x - m_shape.width * 0.5f, m_pos.y - m_shape.height * 0.5f, m_shape.width, m_shape.height, m_alpha);
+		D2DC.DrawBitmap(m_image, m_pos.x - m_shape.width * 0.5f, m_pos.y - m_shape.height * 0.5f, m_shape.width, m_shape.height, m_alpha);
 	default:
 
 
@@ -192,30 +183,3 @@ bool CElement::IsVisible(){
 }
 
 ID2D1HwndRenderTarget* CElement::m_renderTarget = nullptr;
-/*
-void CElement::Move(float fTime){
-	static float previous_time = 0;
-	if (previous_time == 0){
-		previous_time = fTime;
-		return;
-	}
-	float delta_time = fTime - previous_time;
-	Move(m_direction, m_speed * delta_time);
-	previous_time = fTime;
-
-
-}
-
-void CElement::Accelerate(float fTime){
-	static float previous_time = 0;
-	if (previous_time == 0){
-		previous_time = fTime;
-		return;
-	}
-	float delta_time = fTime - previous_time;
-
-	Move(m_direction, m_speed * delta_time);
-	previous_time = fTime;
-
-
-}*/

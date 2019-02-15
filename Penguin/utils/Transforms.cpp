@@ -176,3 +176,22 @@ void AlphaChange::Transform(float fTime){
 
 
 }
+
+
+Follow::Follow(CElement* target, float x_offset, float y_offset) :m_target(target), m_x_offset(x_offset), m_y_offset(y_offset){
+
+}
+
+Follow::~Follow(){
+
+}
+
+void Follow::Init(){
+
+}
+
+void Follow::Transform(float fTime){
+	Point<float> p = m_target->GetPos();
+	m_element->SetPos(p.x + m_x_offset, p.y + m_y_offset);
+}
+
